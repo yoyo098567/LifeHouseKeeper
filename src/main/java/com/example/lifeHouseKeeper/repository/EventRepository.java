@@ -9,4 +9,5 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<EventModel, String> {
     EventModel findByEventId (long id);
     EventModel findByEvent (String event);
+    Integer findBySubjectAndEvent(String subject,String event);
 }

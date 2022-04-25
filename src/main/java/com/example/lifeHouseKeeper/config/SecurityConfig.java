@@ -20,8 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()//關閉對 CSRF（跨站請求偽造）攻擊的防護。
+                .formLogin();
                 // 這樣 Security 機制才不會拒絕外部直接對 API 發出的請求，如 Postman 與前端。
-                .formLogin();//啟用內建的登入畫面
+
 
        // http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 

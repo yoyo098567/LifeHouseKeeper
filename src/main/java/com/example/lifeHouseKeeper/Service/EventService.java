@@ -1,5 +1,6 @@
 package com.example.lifeHouseKeeper.Service;
 
+import com.example.lifeHouseKeeper.Model.AccountModel;
 import com.example.lifeHouseKeeper.Model.CalMonthModel;
 import com.example.lifeHouseKeeper.Model.EventModel;
 import com.example.lifeHouseKeeper.Model.api.Request.EventRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 
@@ -25,28 +27,31 @@ public class EventService {
         EventModel eventModel = new EventModel();
         eventModel.setDate(dateFormat(date));
         eventModel.setTime(timeFormat(date));
+        eventModel.setSubject(eventRequest.getSubject());
         eventModel.setEvent(eventRequest.getEvent());
-        eventModel.setCalMonthModel(new CalMonthModel(eventRequest.getId()));
-        if (eventRequest.getCost()==0){
-            eventModel.setCost(0);
+        eventModel.setAccountModel(new AccountModel(Math.toIntExact(eventRequest.getId())));
+        if (eventRequest.getCost().equals("0")){
+            eventModel.setCost("0");
         }else{
             eventModel.setCost(eventRequest.getCost());
         }
-        eventModel.setCalMonthModel(new CalMonthModel(eventRequest.getId()));
-
         eventRepository.save(eventModel);
     }
 
-    public EventResponse findID(Integer id){
-        EventModel eventModel = eventRepository.findByEventId(id);
+    public  List<EventModel> findAllEvent(){
+        List<EventModel> eventModel = eventRepository.findAll();
 
-        Date date = new Date();
-        EventResponse response = new EventResponse();
-        response.setEvent(eventModel.getEvent());
-        response.setDate(dateFormat(date));
-        response.setTime(timeFormat(date));
-        response.setEventId(eventModel.getEventId());
-       return response;
+//        EventResponse response = new EventResponse();
+//        Date date = new Date();
+//        for (EventModel model:eventModel) {
+//            response.setEvent(model.getEvent());
+//            response.setSubject(model.getSubject());
+//            response.setDate(dateFormat(date));
+//            response.setTime(timeFormat(date));
+//            System.out.println(response.getEvent());
+//        }
+//       return response;
+        return  eventModel;
     }
 
     public EventModel findEventID(Integer id){
@@ -59,8 +64,8 @@ public class EventService {
     }
 
     public void deleteData(EventRequest request){
-
-        eventRepository.deleteById(String.valueOf(request.getId()));
+        Integer id = eventRepository.findBySubjectAndEvent(request.getSubject(),request.getEvent());
+        eventRepository.deleteById(String.valueOf(id));
     }
 
     public String dateFormat(Date date){

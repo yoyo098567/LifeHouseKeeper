@@ -3,6 +3,8 @@ package com.example.lifeHouseKeeper.Controller;
 import com.example.lifeHouseKeeper.Model.AccountModel;
 
 import com.example.lifeHouseKeeper.Model.PasswordAndToken;
+import com.example.lifeHouseKeeper.Model.api.Request.AccountRequest;
+import com.example.lifeHouseKeeper.Model.api.Response.AccountResponse;
 import com.example.lifeHouseKeeper.Service.AccountService;
 import com.example.lifeHouseKeeper.Service.LoginService;
 import io.swagger.annotations.Api;
@@ -33,9 +35,9 @@ public class MailController {
     @ApiResponses(value = {
             @ApiResponse(code = 200,message = " Mail Send Success "),
             @ApiResponse(code = 404, message = " The resource you were trying to verifyPassword is not found ")})
-    public String verifyPassword(@RequestParam("email") String userMail) throws Exception{
-        AccountModel accountModel = accountService.findAccount(userMail);
-
+    public AccountResponse verifyPassword(@RequestBody AccountRequest request) throws Exception{
+        AccountModel accountModel = accountService.findAccount(request.getAccount());
+        AccountResponse response = new AccountResponse();
         if(accountModel == null){
             throw new Exception("user not found");
         }
@@ -43,10 +45,10 @@ public class MailController {
         loginService.createPasswdAndToken(accountModel , token);
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Taipei"));
         Date date = new Date();
-
+        response.setIsLogin("驗證信已送出");
         mailSender.send(verifyUrl(date.getTime() , token , accountModel));
 
-        return "驗證信已送出";
+        return response;
     }
 
     @ApiOperation(value = "驗證帳戶")

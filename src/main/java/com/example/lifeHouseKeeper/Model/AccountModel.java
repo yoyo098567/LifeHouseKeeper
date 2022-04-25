@@ -37,4 +37,7 @@ public class AccountModel {
     @OneToMany
     private List<CalMonthModel> calMonthModels = new ArrayList<>();
 
+    @OneToMany
+    private List<EventModel> day = new ArrayList<>();
+
 }

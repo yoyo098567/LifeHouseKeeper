@@ -26,6 +26,7 @@ public class RegisterController {
             @ApiResponse(code = 200,message = " Register Account Success ")})
     public ResponseEntity<?> registerAccount(@RequestBody AccountRequest accountRequest){
         AccountResponse response=service.registerAccount(accountRequest);
-        return ResponseEntity.ok("註冊帳號:"+accountRequest.getAccount()+"\r\n"+"訊息:"+response.getIsLogin());
+
+        return ResponseEntity.ok(response);
     }
 }

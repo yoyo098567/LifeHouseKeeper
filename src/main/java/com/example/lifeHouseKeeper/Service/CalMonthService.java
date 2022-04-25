@@ -1,5 +1,6 @@
 package com.example.lifeHouseKeeper.Service;
 
+import com.example.lifeHouseKeeper.Model.AccountModel;
 import com.example.lifeHouseKeeper.Model.CalMonthModel;
 import com.example.lifeHouseKeeper.Model.api.Request.CalMonthRequest;
 import com.example.lifeHouseKeeper.Model.api.Response.CalMonthResponse;
@@ -17,7 +18,7 @@ public class CalMonthService {
         CalMonthModel calMonthModel = new CalMonthModel();
         calMonthModel.setHowMonth(request.getHowMonth());
         calMonthModel.setTotalCost(request.getTotalCost());
-
+        calMonthModel.setAccountModel(new AccountModel(Math.toIntExact(request.getId())));
         repository.save(calMonthModel);
     }
 

@@ -9,7 +9,9 @@ public class EventRequest {
 
     private long id;
 
+    private String subject;
+
     private String event;
 
-    private long cost;
+    private String cost;
 }

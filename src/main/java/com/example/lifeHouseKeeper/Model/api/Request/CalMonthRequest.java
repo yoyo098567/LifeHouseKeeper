@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter @Setter
 public class CalMonthRequest {
+    private long id;
 
     private String howMonth;
 
-    private long totalCost;
+    private String totalCost;
 }

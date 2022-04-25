@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity(name = "Event")
 @Getter @Setter
@@ -17,6 +16,9 @@ public class EventModel {
     private long eventId;
 
     @Column(nullable = false)
+    private String subject;
+
+    @Column(nullable = false)
     private String event;
 
     @Column
@@ -26,10 +28,10 @@ public class EventModel {
     private String Time;
 
     @Column
-    private long cost;
+    private String cost;
 
     @ManyToOne
     @JoinColumn(name = "id",nullable = false)
-    private CalMonthModel calMonthModel;
+    private AccountModel accountModel;
 
 }

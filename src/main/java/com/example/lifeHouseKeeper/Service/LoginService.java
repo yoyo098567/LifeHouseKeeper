@@ -28,6 +28,7 @@ public class LoginService {
 
     public LoginResponse findAccountLoginState(String account , String password){
         AccountModel accountModel = accountRepository.findByAccountAndPassword(account,password);
+        System.out.println(account +" "+ password);
         AccountModel model = accountRepository.findByAccount(account);
 
         LoginResponse response = new LoginResponse();

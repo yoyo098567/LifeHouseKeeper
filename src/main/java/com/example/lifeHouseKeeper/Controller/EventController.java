@@ -1,6 +1,7 @@
 package com.example.lifeHouseKeeper.Controller;
 
 
+import com.example.lifeHouseKeeper.Model.EventModel;
 import com.example.lifeHouseKeeper.Model.api.Request.EventRequest;
 import com.example.lifeHouseKeeper.Model.api.Response.EventResponse;
 import com.example.lifeHouseKeeper.Service.EventService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 @Api(tags = "EventController",description = "事件類別處理")
 @RestController
@@ -37,11 +39,11 @@ public class EventController {
     }
     @ApiOperation(value = "查詢事件")
     @ApiResponses(value = {
-            @ApiResponse(code = 200,message = " Search Item Success "),
-            @ApiResponse(code = 404, message = " The resource you were trying to reach is not found ")})
-    @GetMapping("/lifeHouseKeeper/searchEvent/{id}")
-    public ResponseEntity<?> searchEvent(@PathVariable Integer id){
-        EventResponse response = eventService.findID(id);
+             @ApiResponse(code = 200, message = " search is Success "),
+             @ApiResponse(code = 404, message = " The resource you were trying to search is not found ")})
+        @GetMapping("/lifeHouseKeeper/searchEvent")
+    public ResponseEntity<?> searchEvent(){
+        List<EventModel> response = eventService.findAllEvent();
         if (response==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }else {

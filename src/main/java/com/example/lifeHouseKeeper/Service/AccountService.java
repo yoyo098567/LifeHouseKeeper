@@ -6,6 +6,9 @@ import com.example.lifeHouseKeeper.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.TimeZone;
+
 @Service
 public class AccountService {
     @Autowired
@@ -13,7 +16,10 @@ public class AccountService {
 
 
     public void changeUserPassword(String password, AccountModel accountModel){
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Taipei"));
+        Date date = new Date();
         accountModel.setPassword(password);
+        accountModel.setLastTime(date);
         accountRepository.save(accountModel);
     }
 

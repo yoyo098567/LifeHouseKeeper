@@ -3,7 +3,6 @@ package com.example.lifeHouseKeeper.Controller;
 import com.example.lifeHouseKeeper.Model.AccountModel;
 import com.example.lifeHouseKeeper.Model.LoginModel;
 import com.example.lifeHouseKeeper.Model.api.Request.AccountRequest;
-import com.example.lifeHouseKeeper.Model.api.Request.PasswordAndTokenRequest;
 import com.example.lifeHouseKeeper.Service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

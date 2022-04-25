@@ -14,4 +14,6 @@ public class EventResponse {
     private String date;
 
     private String time;
+
+    private String subject;
 }

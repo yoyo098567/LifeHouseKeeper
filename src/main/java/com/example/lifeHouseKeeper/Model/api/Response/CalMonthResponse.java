@@ -9,7 +9,7 @@ public class CalMonthResponse {
 
     private String month;
 
-    private long TotalCost;
+    private String TotalCost;
 
     private String des;
 }
